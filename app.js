@@ -45,9 +45,13 @@ app.use(session({
   saveUninitialized: false,
   store: MongoStore.create({ mongoUrl: process.env.MONGO_URI }),
   cookie: {
-    secure: true,
-    httpOnly: true,
-    sameSite: "lax",
+    //
+    //secure: true,
+    //
+    //httpOnly: true,
+    //The line should be in for advanced security but idk how to fully implement it
+
+    //sameSite: "lax",
     maxAge: null, // Session expires when browser closes
   },
 }));
@@ -66,11 +70,13 @@ app.use((req, res, next) => {
 //Also look into select() to filter query
 app.get("/", async (req, res) => {
     try {
-        const user = await User.find({email: req.session.user.email});
+        const user = await User.findOne({email: req.session.user.email});
         const friendVar = user.friends;
         const friends = await User.find({email: { $in: friendVar }});
-        res.render("index", { user: req.session.user, title: "Friends", friends: friends || []});
-    } catch {
+        console.log("All was successful");
+        res.render("index", { user: user, title: "Friends", friends: friends || []});
+    } catch (err) {
+        console.log("All was not successful", err);
         res.redirect("/login");
     }
 });
@@ -87,11 +93,9 @@ app.post("/register", async (req, res) => {
     try {
         const user = new User({name: username, email: email, password: hash, friends: [], frequests: []});
         await user.save();
-        console.log("User registered:", user);
         req.session.user = user;
         res.redirect("/");
     } catch (err) {
-        console.log("Error during registration", err);
         res.send("Email already exists");
     };
 });
