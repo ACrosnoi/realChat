@@ -267,33 +267,19 @@ a.return button:hover {
 }
 
 /* Main user's messages */
-.chat-messages .main-message {
-    align-self: flex-end;
-}
-.chat-messages strong.main {
+.chat-messages strong.chatNameL {
     text-align: right;
     color: #8b5fbf;
 }
-.chat-messages .main {
-    background-color: #8b5fbf; /* Mysterious purple */
-    color: #ffffff;
-    border-bottom-right-radius: 5px;
-    margin-left: auto; /* Pushes to the right */
-}
+
 
 /* Friend's messages */
-.chat-messages .friend-message {
+.chat-messages {
     align-self: flex-start;
 }
-.chat-messages strong.friend {
+.chat-messages strong.chatNameA {
     text-align: left;
     color: #bca8d4;
-}
-.chat-messages p.friend {
-    background-color: #5c4b6b; /* Muted grey-purple */
-    color: #e8dff5;
-    border-bottom-left-radius: 5px;
-    margin-right: auto; /* Pushes to the left */
 }
 
 /* Chat input form */
@@ -329,5 +315,16 @@ form.addForm button {
 }
 
 .chatNameL {
-
+    background-color: #8b5fbf; /* Mysterious purple */
+    color: #ffffff;
+    border-bottom-right-radius: 5px;
+    margin-left: auto; /* Pushes to the right */
 }
+
+.chatNameA {
+    background-color: #5c4b6b; /* Muted grey-purple */
+    color: #e8dff5;
+    border-bottom-left-radius: 5px;
+    margin-right: auto; /* Pushes to the left */
+}
+
