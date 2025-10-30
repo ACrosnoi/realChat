@@ -18,7 +18,7 @@
 
 <ul class="friendsList">
   <li>
-    <% if (friends.length < 0) { %> 
+    <% if (friends.length > 0) { %> 
         <% friends.forEach(friend => { %>
             <a href="/delve/<%= friend.email %>"><strong><%= friend.name %></strong></a>
         <% }) %>

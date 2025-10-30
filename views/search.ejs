@@ -1,22 +1,17 @@
 <a href="/" class="return">Back to Friends</a></p>
 
-<ul>
+<ul class="searchResultsUL">
+  <% if (results.length > 0) { %>
     <% results.forEach(result => { %>
-        <strong class="main"><%= result.name %></strong>
-        <p class="main"><%= result.email %></p>
-
+      <div class="searchResultsDIV">
+      <a href="/friendReq/<%= result.email %>">
+          <strong><%= result.name %></strong>
+          <p><%= result.email %></p>
+      </a>
+      </div>
     <% }) %>
-<ul class="searchResultUL">
-  <li>
-    <% if (results.length > 0) { %>
-        <% results.forEach(result => { %>
-            <a href="/friendReq/<%= result.email %>">
-                <strong><%= result.name %></strong>
-                <p><%= result.email %></p>
-            </a>
-        <% }) %>
-    <% } else { %>
-      <strong>No Results</strong>
-    <% } %>
+  <% } else { %>
+    <strong>No Results</strong>
+  <% } %>
   </li>
 </ul>

@@ -139,9 +139,11 @@ app.get("/delve/:email", async (req, res) => {
         return res.redirect("/login");
     }
     const amalgam = [req.session.user.email, req.params.email].sort().join();
+    req.session.amalgam = amalgam;
     const chat = await Message.findOne({emailAmalgam: amalgam});
     //This is for the add feature as it will change everytime a different friend's page is viewed
-    const friend = await User.findOne({email: req.params.email})
+    const friend = await User.findOne({email: req.params.email});
+    req.session.friend = friend;
     res.render("chat", {title: friend, chat: chat || { messages: [] }});
 });
 
@@ -150,10 +152,11 @@ app.post("/add", async (req, res) => {
         res.send("Invalid Text Input");
     };
     const text = req.body;
-    const chat = await Message.findOne({emailAmalgam: res.session.amalgamG});
-    chat.push([res.session.user.email, text]);
+    const chat = await Message.findOne({emailAmalgam: req.session.amalgam});
+    chat.messages.push([req.session.user.email, text]);
+    await chat.save();
     //Reloads page
-    res.render("chat", {title: session.friendG, chat: chat || { messages: [] }});
+    res.render("chat", {title: req.session.friend, chat: chat || { messages: [] }});
 });
 
 //Search for users by username or email
@@ -192,7 +195,7 @@ app.get("/friendReq/:email", async (req, res) => {
             await user.save();
             req.session.user = await User.findOne({email: real.email});
         } else {
-            const newChat = new Message({emailAmalgam: amalgam, message: [user.email, "Hey!"]});
+            const newChat = new Message({emailAmalgam: amalgam, messages: [user.email, "Hey!"]});
             newChat.save();
             await user.save();
             await real.save();
@@ -200,8 +203,8 @@ app.get("/friendReq/:email", async (req, res) => {
             res.redirect("/");
     };
     } else {
-        real.frequests.push(userE);
-        user.pendingreq.push(real.email);
+        real.pendingreq.push(userE);
+        user.frequests.push(real.email);
         await real.save();
         await user.save();
         res.redirect("/");
@@ -234,7 +237,7 @@ app.get("/accept/:email", async (req, res) => {
             await invite.save();
             req.session.user = await User.findOne({email: user.email});
     } else {
-        const newChat = new Message({emailAmalgam: amalgam, message: [invite.email, "Hey!"]});
+        const newChat = new Message({emailAmalgam: amalgam, messages: [invite.email, "Hey!"]});
         newChat.save();
         await user.save();
         await invite.save();
