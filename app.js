@@ -16,10 +16,7 @@ app.set("layout", "layout");
 app.use(express.urlencoded({ extended: true }));
 
 require("dotenv").config();
-mongoose.connect(process.env.MONGO_URI)
-    .then(() => console.log("Connected to DB:", mongoose.connection.name))
-    .catch(err => console.log("❌ DB Error:", err));
-
+mongoose.connect(process.env.MONGO_URI);
 // Define User Schema
 const userSchema = new mongoose.Schema({
     name: { type: String },
@@ -43,14 +40,20 @@ const Message = mongoose.model("Message", messageSchema, "message");
 
 // Session setup
 app.use(session({
-  secret: "secretkey", // change for production
+  secret: process.env.SESSION_SECRET, // change for production
   resave: false,
   saveUninitialized: false,
   store: MongoStore.create({ mongoUrl: process.env.MONGO_URI }),
   cookie: {
+    secure: true,
+    httpOnly: true,
+    sameSite: "lax",
     maxAge: null, // Session expires when browser closes
   },
 }));
+
+//For proxy
+if (process.env.NODE_ENV === "production") app.set("trust proxy", 1);
 
 // Middleware to make user available in all templates
 app.use((req, res, next) => {
