@@ -15,7 +15,8 @@ app.use(expressLayouts);
 app.set("layout", "layout");
 app.use(express.urlencoded({ extended: true }));
 
-mongoose.connect("mongodb+srv://andreicrosnoi_db_user:WqIVbKzUFovoMVsM@firstcluster.u9x8cjk.mongodb.net/?appName=firstCluster")
+require("dotenv").config();
+mongoose.connect(process.env.MONGO_URI)
     .then(() => console.log("Connected to DB:", mongoose.connection.name))
     .catch(err => console.log("❌ DB Error:", err));
 
@@ -45,7 +46,7 @@ app.use(session({
   secret: "secretkey", // change for production
   resave: false,
   saveUninitialized: false,
-  store: MongoStore.create({ mongoUrl: "mongodb+srv://andreicrosnoi_db_user:WqIVbKzUFovoMVsM@firstcluster.u9x8cjk.mongodb.net/?appName=firstCluster" }),
+  store: MongoStore.create({ mongoUrl: process.env.MONGO_URI }),
   cookie: {
     maxAge: null, // Session expires when browser closes
   },
