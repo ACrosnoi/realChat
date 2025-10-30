@@ -1,0 +1,24 @@
+
+<% if (user) { %>
+    <a href="/" class="return">Back to Friends</a></p>
+
+<% } else { %>
+    <p><a href="/login">Login</a> or <a href="/register">Register</a> to chat</p>
+<% } %>
+
+<ul>
+    <% chat.messages.forEach(chats => {
+        <% if (chats[0] === user.email) { %>
+            <strong class="main"><%= user.name %></strong>
+            <p class="main"><%= chats[1] %></p>
+        <% } else { %>
+            <strong class="friend"><%= chats[0] %></strong>
+            <p class="friend"><%= chats[1] %></p>
+        <% } %>
+    })
+
+    <form action="/add" method="POST" class="addForm">
+        <textarea name="text" placeholder="Write a message..." required></textarea>
+        <button type="submit">Post</button>
+    </form>
+</ul>

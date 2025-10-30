@@ -1,0 +1,29 @@
+
+<form method="GET" action="/findUser">
+    <input name="username" placeholder="Search by Username">
+    <input name="email" placeholder="Search by Email">
+    <button>Search</button>
+</form>
+
+<a href="/frequests"><button>Friend Requests</button></a>
+
+<% if (user) { %>
+    <p class="welcome">Welcome, <%= user.name %>! <a href="/logout">Logout</a></p>
+
+<% } else { %>
+    <ul class="loginU">
+        <p><a href="/login">Login</a> or <a href="/register">Register</a> to post.</p>
+    </ul>
+<% } %>
+
+<ul class="friendsList">
+  <li>
+    <% if (friends.length < 0) { %> 
+        <% friends.forEach(friend => { %>
+            <a href="/delve/<%= friend.email %>"><strong><%= friend.name %></strong></a>
+        <% }) %>
+    <% } else { %>
+        <strong>No Friends Added</strong>
+    <% } %>
+  </li>
+</ul>

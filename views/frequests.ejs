@@ -1,0 +1,22 @@
+
+<a href="/" class="return"><button>Return</button></a>
+
+<% if (user) { %>
+    <p class="welcome">Here you will see friend requests!</p>
+
+<% } else { %>
+    <ul class="loginU">
+        <p><a href="/login">Login</a> or <a href="/register">Register</a> to post.</p>
+    </ul>
+<% } %>
+
+<ul class="friendsList">
+  <li>
+    <% frequests.forEach(request => { %>
+        <strong><%= request.name %></strong>
+        <strong><%= request.email %></strong>
+        <a href="/accept/<%= request.email %>"><button>Accept request</button></a>
+        <a href="/decline/<%= request.email %>"><button>Decline Request</button></a>
+    <% }) %>
+  </li>
+</ul>

@@ -1,0 +1,329 @@
+/*
+ * Modern CSS - Romantic & Mysterious Theme
+ * (Deep Purple, Magenta, Ruby)
+ */
+
+/* === Global & Typography === */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #2b2133; /* Deep mysterious purple */
+    color: #e8dff5; /* Soft lavender text */
+    line-height: 1.6;
+}
+
+main {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+}
+
+h2 {
+    color: #e0407b; /* Romantic magenta */
+    border-bottom: 2px solid #5d336a; /* Muted plum */
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    font-weight: 300;
+}
+
+p {
+    margin-bottom: 15px;
+}
+
+a {
+    color: #e0407b;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #ff7ab3;
+    text-decoration: underline;
+}
+
+ul {
+    list-style-type: none;
+}
+
+/* Hide the layout.ejs debug message */
+p[style*="color: gray"] {
+    display: none;
+}
+
+/* === Forms (Login, Register, Search) === */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    background-color: #3a2d45; /* Slightly lighter purple */
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    margin-bottom: 20px;
+}
+
+/* Horizontal search form */
+form[action="/findUser"] {
+    flex-direction: row;
+    align-items: center;
+}
+
+form[action="/findUser"] input {
+    flex: 1; /* Make inputs grow */
+}
+
+input,
+textarea {
+    width: 100%;
+    padding: 14px;
+    font-size: 1rem;
+    background-color: #2b2133;
+    border: 1px solid #5d336a;
+    color: #e8dff5;
+    border-radius: 8px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: #9c89b3;
+}
+
+input:focus,
+textarea:focus {
+    outline: none;
+    border-color: #e0407b;
+    box-shadow: 0 0 8px rgba(224, 64, 123, 0.5);
+}
+
+/* === Buttons === */
+button {
+    padding: 12px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #ffffff;
+    background-color: #e0407b; /* Primary romantic color */
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+    background-color: #c23369;
+    transform: translateY(-2px);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+/* Special button links (like "Friend Requests") */
+a[href="/frequests"] button {
+    background-color: #8b5fbf; /* Mysterious purple */
+    margin-bottom: 20px;
+}
+
+a[href="/frequests"] button:hover {
+    background-color: #7a4fb0;
+}
+
+/* Return buttons */
+a.return {
+    display: inline-block;
+    margin-bottom: 20px;
+    font-weight: normal;
+    color: #bca8d4;
+}
+a.return button {
+    background: transparent;
+    border: 1px solid #5d336a;
+    color: #bca8d4;
+    padding: 8px 15px;
+}
+a.return button:hover {
+    background: #5d336a;
+    color: #ffffff;
+    transform: none;
+}
+
+/* === Lists (Friends, Search Results, Requests) === */
+.friendsList,
+.searchResultUL {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.friendsList li,
+.searchResultUL li {
+    background-color: #3a2d45;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease;
+}
+
+.friendsList li a,
+.searchResultUL li a {
+    display: block;
+    padding: 18px;
+    color: #e8dff5;
+}
+
+.friendsList li:hover,
+.searchResultUL li:hover {
+    background-color: #4b3a59;
+}
+
+.friendsList li a:hover,
+.searchResultUL li a:hover {
+    text-decoration: none;
+}
+
+.friendsList strong,
+.searchResultUL strong {
+    color: #e8dff5;
+    font-size: 1.1rem;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.friendsList p,
+.searchResultUL p {
+    color: #bca8d4;
+    margin: 0;
+}
+
+/* Friend Requests Page */
+.frequests .friendsList li {
+    padding: 18px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+}
+
+.frequests .friendsList li div { /* Wrapper for user info */
+    flex-grow: 1;
+}
+
+.frequests .friendsList li strong {
+    margin-bottom: 0;
+}
+
+.frequests .friendsList li .actions { /* Wrapper for buttons */
+    display: flex;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+.frequests .friendsList li button {
+    font-size: 0.9rem;
+    padding: 8px 12px;
+}
+
+.frequests .friendsList li a[href*="/decline"] button {
+    background-color: #5c4b6b; /* Muted grey-purple */
+}
+.frequests .friendsList li a[href*="/decline"] button:hover {
+    background-color: #493c55;
+}
+
+
+/* === Chat Page === */
+.chat-messages { /* Assuming the <ul> on chat.ejs holds messages */
+    background: #3a2d45;
+    border: 1px solid #5d336a;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    max-height: 60vh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.chat-messages strong {
+    display: block;
+    font-size: 0.9rem;
+    margin-bottom: 3px;
+    opacity: 0.8;
+}
+
+.chat-messages p {
+    padding: 12px 18px;
+    border-radius: 20px;
+    line-height: 1.4;
+    max-width: 75%;
+    width: fit-content;
+    margin-bottom: 0;
+}
+
+/* Main user's messages */
+.chat-messages .main-message {
+    align-self: flex-end;
+}
+.chat-messages strong.main {
+    text-align: right;
+    color: #8b5fbf;
+}
+.chat-messages p.main {
+    background-color: #8b5fbf; /* Mysterious purple */
+    color: #ffffff;
+    border-bottom-right-radius: 5px;
+    margin-left: auto; /* Pushes to the right */
+}
+
+/* Friend's messages */
+.chat-messages .friend-message {
+    align-self: flex-start;
+}
+.chat-messages strong.friend {
+    text-align: left;
+    color: #bca8d4;
+}
+.chat-messages p.friend {
+    background-color: #5c4b6b; /* Muted grey-purple */
+    color: #e8dff5;
+    border-bottom-left-radius: 5px;
+    margin-right: auto; /* Pushes to the left */
+}
+
+/* Chat input form */
+form.addForm {
+    flex-direction: row;
+    background: none;
+    box-shadow: none;
+    padding: 0;
+    gap: 10px;
+}
+form.addForm textarea {
+    flex: 1; /* Grow to fill space */
+    min-height: 50px; /* Ensure a decent height */
+}
+form.addForm button {
+    flex-shrink: 0; /* Don't shrink */
+}
+
+
+/* === Utility & Welcome === */
+.welcome,
+.loginU {
+    text-align: center;
+    background-color: #3a2d45;
+    padding: 25px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+}
+
+.welcome {
+    font-size: 1.2rem;
+    color: #e8dff5;
+}
