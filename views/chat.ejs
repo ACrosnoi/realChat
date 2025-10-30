@@ -9,11 +9,11 @@
 <ul class="chatUL">
     <% chat.messages.forEach(chats => { %>
         <% if (chats[0] === user.email) { %>
-            <strong class="main" id="chat-messages"><%= user.name %></strong>
-            <p class="main" id="chat-messages"><%= chats[1] %></p>
+            <strong class="main" id="chatNameL"><%= user.name %></strong>
+            <p class="main" id="chat-messages"><%= chats[1].text %></p>
         <% } else { %>
-            <strong class="friend" id="chat-messages"><%= chats[0] %></strong>
-            <p class="friend" id="chat-messages"><%= chats[1] %></p>
+            <strong class="friend" id="chatNameA"><%= chats[0] %></strong>
+            <p class="friend" id="chat-messages"><%= chats[1].text %></p>
         <% } %>
     <% }) %>
 

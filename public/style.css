@@ -274,7 +274,7 @@ a.return button:hover {
     text-align: right;
     color: #8b5fbf;
 }
-.chat-messages p.main {
+.chat-messages .main {
     background-color: #8b5fbf; /* Mysterious purple */
     color: #ffffff;
     border-bottom-right-radius: 5px;
@@ -326,4 +326,8 @@ form.addForm button {
 .welcome {
     font-size: 1.2rem;
     color: #e8dff5;
+}
+
+.chatNameL {
+
 }

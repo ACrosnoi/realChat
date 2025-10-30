@@ -156,6 +156,11 @@ app.post("/add", async (req, res) => {
     chat.messages.push([req.session.user.email, text]);
     await chat.save();
     //Reloads page
+    console.log(chat);
+    chat.messages.forEach(message => {
+        console.log(message[1]);
+    });
+    console.log(req.session.friend);
     res.render("chat", {title: req.session.friend, chat: chat || { messages: [] }});
 });
 
@@ -237,7 +242,7 @@ app.get("/accept/:email", async (req, res) => {
             await invite.save();
             req.session.user = await User.findOne({email: user.email});
     } else {
-        const newChat = new Message({emailAmalgam: amalgam, messages: [invite.email, "Hey!"]});
+        const newChat = new Message({emailAmalgam: amalgam, messages: [[invite.email, "Hey!"]]});
         newChat.save();
         await user.save();
         await invite.save();
